@@ -37,6 +37,8 @@ flatflatpak.list () { # List flatpak packages
 
 
 flatflatpak.install () { # Install and update flatpak packages
+    # Ensure using flathub
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     echo "Running flatpak install and update..."
     if [ "$1" ];then
 	mkdir -p $HOME/.config/
