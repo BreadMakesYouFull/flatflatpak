@@ -37,11 +37,13 @@ flatflatpak install
 
 ## Adding new packages
 
-Search for a package with flatpak
+Search for a package (just an alias to flatpak search)
 
 ```
 flatflatpak search blender
 ```
+
+Install package, update other packages, update flatflatpak.txt
 
 ```
 flatflatpak install org.blender.Blender
