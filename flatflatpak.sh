@@ -8,8 +8,16 @@ Usage:
     # Display help
     flatflatpak --help
 
-    # Install and update all
+    # Search for a package (alias to flatpak search)
+    flatflatpak search
+
+    # Install a single package
+    flatflatpak install org.blender.Blender
+
+    # Install & Update all
     flatflatpak install
+    # OR
+    flatflatpak update
 
     # List installed
     flatflatpak list
@@ -28,27 +36,39 @@ flatflatpak.list () { # List flatpak packages
 }
 
 
-flatflatpak.install () { # Install all flatpak packages
+flatflatpak.install () { # Install and update flatpak packages
+    echo "Running flatpak install and update..."
+    if [ "$1" ];then
+	mkdir -p $HOME/.config/
+	echo "$1" >> $HOME/.config/flatflatpak.txt
+    fi
     xargs flatpak \
         install \
-    --user \
-    --assumeyes \
-    --or-update \
-    --verbose \
-    --noninteractive \
-    < $HOME/.config/flatflatpak.txt
+        --user \
+        --assumeyes \
+        --or-update \
+        --verbose \
+        --noninteractive \
+        < $HOME/.config/flatflatpak.txt
+    echo "...install and update complete"
 }
 
 
 flatflatpak.freeze () { # Update flatflatpak install list from current installs
+    mkdir -p $HOME/.config/
     flatflatpak.list > $HOME/.config/flatflatpak.txt
 }
+
 
 flatflatpak.main () { # Main entry point
     if [[ $1 == "list" ]]; then
         flatflatpak.list
     elif [[ $1 == "install" ]]; then
+        flatflatpak.install $2
+    elif [[ $1 == "update" ]]; then
         flatflatpak.install
+    elif [[ $1 == "search" ]]; then
+        flatpak search $2
     elif [[ $1 == "freeze" ]]; then
         flatflatpak.freeze
     else

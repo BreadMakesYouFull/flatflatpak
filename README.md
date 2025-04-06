@@ -35,6 +35,18 @@ Install / Update all packages:
 flatflatpak install
 ```
 
+## Adding new packages
+
+Search for a package with flatpak
+
+```
+flatflatpak search blender
+```
+
+```
+flatflatpak install org.blender.Blender
+```
+
 ### Requirements
 
 - bash
